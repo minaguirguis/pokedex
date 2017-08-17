@@ -15,6 +15,13 @@ class PokeCell: UICollectionViewCell {
     
     var pokemon: Pokemon!
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        layer.cornerRadius = 5.0
+    }
+    //adding rounded corners
+    
     func configureCell(pokemon: Pokemon) {
         self.pokemon = pokemon
         
@@ -25,4 +32,9 @@ class PokeCell: UICollectionViewCell {
         //since pokedexID is a number we converted it into a string
     }
     //a function that updates the contents of each collection view cell
+    
+    
+    
 }
+
+
