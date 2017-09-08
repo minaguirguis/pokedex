@@ -12,8 +12,10 @@ class PokeCell: UICollectionViewCell {
     
     @IBOutlet weak var thumbImg: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
+    //calling the things we want to modify
     
     var pokemon: Pokemon!
+    //creating a class and giving it the type Pokemon
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -22,7 +24,7 @@ class PokeCell: UICollectionViewCell {
     }
     //adding rounded corners
     
-    func configureCell(pokemon: Pokemon) {
+    func configureCell(_ pokemon: Pokemon) {
         self.pokemon = pokemon
         
         nameLbl.text = self.pokemon.name.capitalized
