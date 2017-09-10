@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collection: UICollectionView!
     
     var pokemon = [Pokemon]()
+    var musicPlayer: AVAudioPlayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +23,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collection.delegate = self
         
         parsePokemonCSV()
+        initAudio()
        
     }
+    
+    func initAudio() {
+        let path = Bundle.main.path(forResource: "music", ofType: "mp3")! // forced unwrap because we know it exists
+        
+        do {
+         
+            musicPlayer = try AVAudioPlayer(contentsOf: URL(string: path)!)
+            musicPlayer.prepareToPlay()
+            //preparing music to be played at launch
+            musicPlayer.numberOfLoops = -1
+            //it will loop continuously
+            musicPlayer.play()
+            
+        }catch let err as NSError {
+        
+            print(err.debugDescription)
+        
+        }
+    }
+    
+    //this the function that will get any of your audio ready
     
     func parsePokemonCSV() {
         
@@ -89,5 +113,29 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     //sets the size of each item
+    
+    
+    @IBAction func musicBtnPressed(_ sender: UIButton) {
+        
+        if musicPlayer.isPlaying {
+            musicPlayer.pause()
+           
+            
+            sender.alpha = 0.2
+            //this makes the button a little transparent when it's being pressed
+            
+            
+        } else {
+            
+            musicPlayer.play()
+            
+            sender.alpha = 1.0
+            //this makes the button more solid after its get pressed to play the music again
+        }
+        
+    }
+    //making a function for it to pause when button is tapped
+    
+    
 }
 
