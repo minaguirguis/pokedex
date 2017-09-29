@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Avenir.ttc">
+            <string>Avenir-Book</string>
+        </array>
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+            <string>HelveticaNeue-Bold</string>
+            <string>HelveticaNeue-Italic</string>
+        </array>
         <array key="pokemonFont.ttf">
             <string>PokemonSolidNormal</string>
         </array>
@@ -181,6 +189,9 @@
                                             <constraint firstAttribute="height" constant="23" id="zbH-9a-ezg"/>
                                         </constraints>
                                         <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="backBtnPressed:" destination="cn7-U3-wVK" eventType="touchUpInside" id="4qY-4v-uOD"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.34509803919999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -425,7 +436,18 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="baseAttackLbl" destination="GwA-he-3iX" id="mMZ-IW-ohQ"/>
+                        <outlet property="currentEvoImg" destination="653-z7-rUO" id="nrx-5L-S4w"/>
+                        <outlet property="defenseLbl" destination="vy7-w0-Yqg" id="2zt-H6-dQl"/>
+                        <outlet property="descriptionLbl" destination="W8f-vz-Q7k" id="Llg-eD-2eO"/>
+                        <outlet property="evoLbl" destination="tNq-XI-L1F" id="zxj-Yi-2gc"/>
+                        <outlet property="heightLbl" destination="b5y-qe-PXt" id="cnX-rF-7D6"/>
+                        <outlet property="mainImg" destination="w47-Qy-boE" id="0Ie-Ko-BRo"/>
                         <outlet property="nameLbl" destination="2Hg-Yr-tzc" id="a2T-3Z-6Np"/>
+                        <outlet property="nextEvoImg" destination="gQa-qe-rnM" id="idX-3w-YWF"/>
+                        <outlet property="pokedexidLbl" destination="r3n-Wp-Sqj" id="c4O-aR-6eC"/>
+                        <outlet property="typeLbl" destination="ME1-xL-tO1" id="MGD-s5-9pF"/>
+                        <outlet property="weightLbl" destination="oeK-0W-ifa" id="45Q-7s-hq0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZe-b8-QxF" userLabel="First Responder" sceneMemberID="firstResponder"/>
