@@ -30,7 +30,15 @@ class PokemonDetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameLbl.text = pokemon.name
+        //////////
+        nameLbl.text = pokemon.name.capitalized
+        
+        let img = UIImage(named: "\(pokemon.pokedexID)")
+        
+        mainImg.image  = img
+        currentEvoImg.image = img
+        pokedexidLbl.text = "\(pokemon.pokedexID)"
+        //updating the UI
         
         pokemon.downloadPokemonDetail() {
             //whatever we write here will only be called afte the network all is complete
@@ -45,6 +53,7 @@ class PokemonDetailVC: UIViewController {
         defenseLbl.text = pokemon.defense
         heightLbl.text = pokemon.height
         weightLbl.text = pokemon.weight
+        typeLbl.text = pokemon.type
         
     }
     //now we are actually going to update the UI

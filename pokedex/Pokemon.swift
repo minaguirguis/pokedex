@@ -80,13 +80,10 @@ class Pokemon {
     //this is data protection
     
     
-    
-    
     var name: String {
         
         return _name
     }
-    
     
     var pokedexID: Int {
         
@@ -102,6 +99,8 @@ class Pokemon {
         self._pokemonURL = "\(URL_BASE)\(URL_POKEMON)\(self.pokedexID)/"
     }
     //intilizing the variables
+    
+    
     
     func downloadPokemonDetail(completed: @escaping DownloadComplete) {
         //passing in closure for our function
@@ -137,15 +136,35 @@ class Pokemon {
             print(self._height)
             print(self._attack)
             print(self._defense)
-        }
-        //declaring variable in which it will access the JSON of the api we just called
+            
+            if let types = dict["types"] as? [Dictionary<String, String>] , types.count > 0{ //since the type is stored in an array of dictionaries we have to put [Dictionary<String, String>]
+    
+                if let name = types[0]["name"] {
+                    self._type = name.capitalized
+                }
+                
+                if types.count > 1 {
+                    
+                    for x in 1..<types.count {
+                        if let name = types[x]["name"]{
+                            self._type! += "\("/" + name.capitalized)"
+                        }
+                    }
+                }//checking to see if there is more than one type then storing it to the existing variable
+                print (self._type)
+                
+            }
+            
+            else {
+                self._type = ""
+            }//just in case there is no value stored in "type"
             
             
+        } //declaring variable in which it will access the JSON of the api we just called
+       
             
         //all the data we get back will be stored in "response"
-        
         completed()
-        
     }
     
     
