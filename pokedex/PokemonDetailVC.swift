@@ -54,6 +54,18 @@ class PokemonDetailVC: UIViewController {
         heightLbl.text = pokemon.height
         weightLbl.text = pokemon.weight
         typeLbl.text = pokemon.type
+        descriptionLbl.text = pokemon.description
+        
+        if pokemon.nextEvolutionID == "" {
+            
+            evoLbl.text = "No Evolutions"
+            nextEvoImg.isHidden = true
+        }else {
+            nextEvoImg.isHidden = false
+            nextEvoImg.image = UIImage(named: pokemon.nextEvolutionID)
+            let str = "Next Evolution: \(pokemon.nextEvolutionName) - LVL \(pokemon.nextEvolutionLevel)"
+            evoLbl.text = str
+        }
         
     }
     //now we are actually going to update the UI

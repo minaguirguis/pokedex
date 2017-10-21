@@ -19,9 +19,33 @@ class Pokemon {
     private var _weight: String!
     private var _attack: String!
     private var _nextEvolutionTxt: String!
+    private var _nextEvolutionName: String!
+    private var _nextEvolutionID: String!
+    private var _nextEvolutionLevel: String!
     private var _pokemonURL: String!
     
     //_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+    var nextEvolutionLevel: String {
+        if _nextEvolutionLevel == nil {
+            _nextEvolutionLevel = ""
+        }
+        return _nextEvolutionLevel
+    }
+    
+    var nextEvolutionID: String {
+        if _nextEvolutionID == nil {
+            _nextEvolutionID = ""
+        }
+        return _nextEvolutionID
+    }
+    
+    var nextEvolutionName: String {
+        if _nextEvolutionName == nil {
+            _nextEvolutionName = ""
+        }
+        return _nextEvolutionName
+    }
+    
     var description: String {
         if _description == nil {
             _description = ""
@@ -159,8 +183,66 @@ class Pokemon {
                 self._type = ""
             }//just in case there is no value stored in "type"
             
+      //^^^^^^^^^^^getting types ^^^^^^^^^^^^^^
+            if let descriptionArr = dict["descriptions"] as? [Dictionary<String, String>] , descriptionArr.count > 0 {
+    
+                if let url = descriptionArr[0]["resource_uri"] {
+                    
+                      let descURL = "\(URL_BASE)\(url)"
+                    
+                    Alamofire.request(descURL).responseJSON(completionHandler: { (response) in
+                        if let descDict = response.result.value as? Dictionary<String, Any> {
+                            if let description = descDict["description"] as? String {
+                                
+                                let newDescription = description.replacingOccurrences(of: "POKMON", with: "Pokemon")
+                                self._description = newDescription
+                                print(newDescription)
+                            }
+                        }
+                        completed()
+                    })//we had to make a second alamofire call to get description from the other link
+                }
+            }else {
+                self._description = ""
+            }
+            //^^^^^^^^^^^getting description^^^^^^^^^^^^^^^
             
-        } //declaring variable in which it will access the JSON of the api we just called
+            if let evolutions = dict["evolutions"] as? [Dictionary <String, Any>] , evolutions.count > 0 {
+                
+                if let nextEvo = evolutions[0]["to"] as? String {
+                
+                    if nextEvo.range(of: "mega") == nil {
+                        self._nextEvolutionName = nextEvo
+                    
+                        if let uri = evolutions[0]["resource_uri"] as? String {
+                            
+                            let newString = uri.replacingOccurrences(of: "/api/v1/pokemon/", with: "")
+                            let nextEvoID = newString.replacingOccurrences(of: "/", with: "")
+                            
+                            self._nextEvolutionID = nextEvoID
+                            
+                            if let lvlExist = evolutions[0]["level"] {
+                                
+                                if let lvl = lvlExist as? Int {
+                                    self._nextEvolutionLevel = "\(lvl)"
+                                }
+                                
+                            }else {
+                                self._nextEvolutionLevel = ""
+                            }
+                        }
+                        
+                    }//we only want to keep going if it's not mega because we do not support it at the moment
+                    
+                }
+                print(self.nextEvolutionLevel)
+                print(self.nextEvolutionName)
+                print(self.nextEvolutionID)
+                
+            }
+            
+            //^^^^^^^^^^^getting evolutions^^^^^^^^^^^^^^^
+        }
        
             
         //all the data we get back will be stored in "response"
